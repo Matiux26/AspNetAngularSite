@@ -8,6 +8,5 @@ namespace Project1.Users
         public string Login { get; set; }            
         public string Password { get; set; }
         public string Email { get; set; }
-        public int Role { get; set; }
     }
 }

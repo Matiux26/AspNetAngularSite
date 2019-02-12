@@ -29,9 +29,8 @@ namespace Project1
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-
-            services.AddDbContext<Project1Context>(options =>                //"Project1Context"
-                    options.UseSqlServer(Configuration.GetConnectionString("Data Source=./SQLEXPRESS;Initial Catalog=VidNet;User id=Glina;Password=;")));
+            services.AddDbContext<Project1Context>(options =>                
+                    options.UseSqlServer(Configuration.GetConnectionString("Project1Context")));
         }
         
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
