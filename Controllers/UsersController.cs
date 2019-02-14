@@ -23,14 +23,14 @@ namespace Project1.Controllers
 
         // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<Users.Users>>> GetUser()
         {
             return await _context.User.ToListAsync();
         }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<Users.Users>> GetUser(int id)
         {
             var user = await _context.User.FindAsync(id);
 
@@ -44,7 +44,7 @@ namespace Project1.Controllers
 
         // PUT: api/Users/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutUser(int id, Users.Users user)
         {
             if (id != user.Id)
             {
@@ -74,7 +74,7 @@ namespace Project1.Controllers
 
         // POST: api/Users
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Users.Users>> PostUser(Users.Users user)
         {
             _context.User.Add(user);
             await _context.SaveChangesAsync();
@@ -84,7 +84,7 @@ namespace Project1.Controllers
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async Task<ActionResult<Users.Users>> DeleteUser(int id)
         {
             var user = await _context.User.FindAsync(id);
             if (user == null)

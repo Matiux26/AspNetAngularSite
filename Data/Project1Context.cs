@@ -14,6 +14,6 @@ namespace Project1.Models
         {
         }
 
-        public DbSet<Project1.Users.User> User { get; set; }
+        public DbSet<Project1.Users.Users> User { get; set; }
     }
 }
