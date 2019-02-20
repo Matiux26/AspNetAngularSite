@@ -17,8 +17,11 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  loginUser(user){
+    return this.http.post('/api/auth/login', user, this.headers);
+  }
+
   getUsers() {
-    console.log(this.http.get('/api/Users'));
     return this.http.get('/api/users');
   }
 

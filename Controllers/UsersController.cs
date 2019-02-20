@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Project1.Models;
-using Project1.Users;
+using Project1.UserModel;
 
 namespace Project1.Controllers
 {
@@ -22,15 +26,15 @@ namespace Project1.Controllers
         }
 
         // GET: api/Users
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Users.Users>>> GetUser()
+        [HttpGet,Authorize]
+        public async Task<ActionResult<IEnumerable<UserModel.Users>>> GetUser()
         {
             return await _context.User.ToListAsync();
         }
 
         // GET: api/Users/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Users.Users>> GetUser(int id)
+        [HttpGet("{id}"),Authorize]
+        public async Task<ActionResult<UserModel.Users>> GetUser(int id)
         {
             var user = await _context.User.FindAsync(id);
 
@@ -43,8 +47,8 @@ namespace Project1.Controllers
         }
 
         // PUT: api/Users/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, Users.Users user)
+        [HttpPut("{id}"),Authorize]
+        public async Task<IActionResult> PutUser(int id, UserModel.Users user)
         {
             if (id != user.Id)
             {
@@ -74,7 +78,7 @@ namespace Project1.Controllers
 
         // POST: api/Users
         [HttpPost]
-        public async Task<ActionResult<Users.Users>> PostUser(Users.Users user)
+        public async Task<ActionResult<UserModel.Users>> PostUser(UserModel.Users user)
         {
             _context.User.Add(user);
             await _context.SaveChangesAsync();
@@ -83,8 +87,8 @@ namespace Project1.Controllers
         }
 
         // DELETE: api/Users/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Users.Users>> DeleteUser(int id)
+        [HttpDelete("{id}"),Authorize]
+        public async Task<ActionResult<UserModel.Users>> DeleteUser(int id)
         {
             var user = await _context.User.FindAsync(id);
             if (user == null)
@@ -98,6 +102,44 @@ namespace Project1.Controllers
             return user;
         }
 
+        // POST: api/login
+        [HttpPost, Route("login")]
+        public async Task<ActionResult<UserModel.Users>> Login(UserModel.Users user)
+        {
+            if (user == null)
+            {
+                return BadRequest("Invalid client request");
+            }
+
+            if (CheckUserCredentials(user) == true)
+            {
+                var secretKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("superSecretKey@345"));
+                var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+
+                var tokeOptions = new JwtSecurityToken(
+                    issuer: "http://localhost:5000",
+                    audience: "http://localhost:5000",
+                    claims: new List<Claim>(),
+                    expires: DateTime.Now.AddMinutes(5),
+                    signingCredentials: signinCredentials
+                );
+
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+                return Ok(new { Token = tokenString });
+            }
+            else
+            {
+                return Unauthorized();
+            }
+        }
+        public Boolean CheckUserCredentials(UserModel.Users user)
+        {
+            var userExists = (from listUsers in _context.User
+                             where listUsers.Login == user.Login || 
+                             listUsers.Password == user.Password
+                             select listUsers).Any();
+            return userExists;
+        }
         private bool UserExists(int id)
         {
             return _context.User.Any(e => e.Id == id);

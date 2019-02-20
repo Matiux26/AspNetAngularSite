@@ -1,6 +1,6 @@
-using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace Project1.Users
+namespace Project1.UserModel
 {
     public class Users
     {
