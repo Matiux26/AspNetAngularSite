@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Project1.UserModel;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Project1.Models
 {
@@ -14,6 +9,7 @@ namespace Project1.Models
         {
         }
 
-        public DbSet<Project1.UserModel.Users> User { get; set; }
+        public DbSet<UserModel.Users> User { get; set; }
+        public DbSet<ProductModel.Products> Product { get; set; }
     }
 }

@@ -1,5 +1,3 @@
-using System;
-
 namespace Project1.Roles
 {
     public class Role
