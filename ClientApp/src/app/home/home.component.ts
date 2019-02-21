@@ -6,8 +6,4 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
-logOut() {
-   localStorage.removeItem("jwt");
-}
-
 }
