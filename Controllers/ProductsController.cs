@@ -25,14 +25,14 @@ namespace Project1.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Products>>> GetProduct()
         {
-            return await _context.Product.ToListAsync();
+            return await _context.Products.ToListAsync();
         }
 
         // GET: api/Products/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Products>> GetProducts(int id)
         {
-            var products = await _context.Product.FindAsync(id);
+            var products = await _context.Products.FindAsync(id);
 
             if (products == null)
             {
@@ -76,7 +76,7 @@ namespace Project1.Controllers
         [HttpPost]
         public async Task<ActionResult<Products>> PostProducts(Products products)
         {
-            _context.Product.Add(products);
+            _context.Products.Add(products);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetProducts", new { id = products.ID }, products);
@@ -86,13 +86,13 @@ namespace Project1.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Products>> DeleteProducts(int id)
         {
-            var products = await _context.Product.FindAsync(id);
+            var products = await _context.Products.FindAsync(id);
             if (products == null)
             {
                 return NotFound();
             }
 
-            _context.Product.Remove(products);
+            _context.Products.Remove(products);
             await _context.SaveChangesAsync();
 
             return products;
@@ -100,7 +100,7 @@ namespace Project1.Controllers
 
         private bool ProductsExists(int id)
         {
-            return _context.Product.Any(e => e.ID == id);
+            return _context.Products.Any(e => e.ID == id);
         }
     }
 }

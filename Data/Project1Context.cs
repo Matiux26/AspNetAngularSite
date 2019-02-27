@@ -9,7 +9,7 @@ namespace Project1.Models
         {
         }
 
-        public DbSet<UserModel.Users> User { get; set; }
-        public DbSet<ProductModel.Products> Product { get; set; }
+        public DbSet<UserModel.Users> Users { get; set; }
+        public DbSet<ProductModel.Products> Products { get; set; }
     }
 }

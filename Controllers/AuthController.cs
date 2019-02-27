@@ -53,7 +53,7 @@ namespace Project1.Controllers
         }
         public Boolean CheckUserCredentials(UserModel.Users user)
         {
-            var userExists = (from listUsers in _context.User
+            var userExists = (from listUsers in _context.Users
                              where listUsers.Login == user.Login || 
                              listUsers.Password == user.Password
                              select listUsers).Any();
