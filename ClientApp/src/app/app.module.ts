@@ -4,20 +4,30 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatCheckboxModule, MatSidenavModule } from '@angular/material';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AuthGuardService } from './auth/auth-guard.service';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
+import { LeftMenuComponent } from './left-menu/left-menu.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent
+    HomeComponent,
+    LeftMenuComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    MatButtonModule,
+    MatCheckboxModule,
+    MatSidenavModule,
+    MatIconModule,
     HttpClientModule,
     JwtModule,
     FormsModule,
@@ -33,6 +43,7 @@ import { HomeComponent } from './home/home.component';
         }
       }
     }),
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

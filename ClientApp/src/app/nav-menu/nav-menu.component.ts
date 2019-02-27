@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthGuardService } from '../auth/auth-guard.service';
+import { MatSidenav } from '@angular/material';
 
 @Component({
   selector: 'app-nav-menu',
@@ -7,6 +8,9 @@ import { AuthGuardService } from '../auth/auth-guard.service';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent implements OnInit{
+
+  @Input() inputSideNav: MatSidenav;
+
   ngOnInit(): void {
   }
 
