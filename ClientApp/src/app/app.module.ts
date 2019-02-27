@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatSidenavModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatSidenavModule, MatPaginatorModule, MatTableModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 
 import { AuthGuardService } from './auth/auth-guard.service';
@@ -24,10 +24,12 @@ import { LeftMenuComponent } from './left-menu/left-menu.component';
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    MatTableModule,
     MatButtonModule,
     MatCheckboxModule,
     MatSidenavModule,
     MatIconModule,
+    MatPaginatorModule,
     HttpClientModule,
     JwtModule,
     FormsModule,
