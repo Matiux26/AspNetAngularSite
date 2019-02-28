@@ -35,10 +35,16 @@ namespace Project1.Controllers
                 var secretKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("superSecretKey@345"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user.Login),
+                    new Claim(ClaimTypes.Role, "Admin")
+                };
+
                 var tokeOptions = new JwtSecurityToken(
                     issuer: "http://localhost:5000",
                     audience: "http://localhost:5000",
-                    claims: new List<Claim>(),
+                    claims: claims,
                     expires: DateTime.Now.AddMinutes(5),
                     signingCredentials: signinCredentials
                 );
@@ -54,9 +60,9 @@ namespace Project1.Controllers
         public Boolean CheckUserCredentials(UserModel.Users user)
         {
             var userExists = (from listUsers in _context.Users
-                             where listUsers.Login == user.Login || 
-                             listUsers.Password == user.Password
-                             select listUsers).Any();
+                              where listUsers.Login == user.Login ||
+                              listUsers.Password == user.Password
+                              select listUsers).Any();
             return userExists;
         }
     }

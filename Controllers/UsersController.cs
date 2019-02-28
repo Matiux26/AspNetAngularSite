@@ -24,14 +24,14 @@ namespace Project1.Controllers
         }
 
         // GET: api/Users
-        [HttpGet,Authorize]
+        [HttpGet,Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<UserModel.Users>>> GetUser()
         {
             return await _context.Users.ToListAsync();
         }
 
         // GET: api/Users/5
-        [HttpGet("{id}"),Authorize]
+        [HttpGet("{id}"),Authorize(Roles = "Admin")]
         public async Task<ActionResult<UserModel.Users>> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -45,10 +45,10 @@ namespace Project1.Controllers
         }
 
         // PUT: api/Users/5
-        [HttpPut("{id}"),Authorize]
+        [HttpPut("{id}"),Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutUser(int id, UserModel.Users user)
         {
-            if (id != user.Id)
+            if (id != user.ID)
             {
                 return BadRequest();
             }
@@ -75,17 +75,17 @@ namespace Project1.Controllers
         }
 
         // POST: api/Users
-        [HttpPost]
+        [HttpPost,Authorize(Roles = "Admin")]
         public async Task<ActionResult<UserModel.Users>> PostUser(UserModel.Users user)
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return CreatedAtAction("GetUser", new { id = user.ID }, user);
         }
 
         // DELETE: api/Users/5
-        [HttpDelete("{id}"),Authorize]
+        [HttpDelete("{id}"),Authorize(Roles = "Admin")]
         public async Task<ActionResult<UserModel.Users>> DeleteUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -113,11 +113,16 @@ namespace Project1.Controllers
             {
                 var secretKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("superSecretKey@345"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-
+                string role = user.Role;
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user.Login),
+                    new Claim(ClaimTypes.Role, role)//tu zamiast role jak sie wpisze "Admin" to dziala
+                };
                 var tokeOptions = new JwtSecurityToken(
                     issuer: "http://localhost:5000",
                     audience: "http://localhost:5000",
-                    claims: new List<Claim>(),
+                    claims: claims,
                     expires: DateTime.Now.AddMinutes(5),
                     signingCredentials: signinCredentials
                 );
@@ -140,7 +145,7 @@ namespace Project1.Controllers
         }
         private bool UserExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.ID == id);
         }
     }
 }

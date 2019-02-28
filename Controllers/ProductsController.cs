@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,7 @@ namespace Project1.Controllers
         }
 
         // GET: api/Products
-        [HttpGet]
+        [HttpGet,Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<Products>>> GetProduct()
         {
             return await _context.Products.ToListAsync();
@@ -43,7 +44,7 @@ namespace Project1.Controllers
         }
 
         // PUT: api/Products/5
-        [HttpPut("{id}")]
+        [HttpPut("{id}"),Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutProducts(int id, Products products)
         {
             if (id != products.ID)
@@ -73,7 +74,7 @@ namespace Project1.Controllers
         }
 
         // POST: api/Products
-        [HttpPost]
+        [HttpPost,Authorize(Roles = "Admin")]
         public async Task<ActionResult<Products>> PostProducts(Products products)
         {
             _context.Products.Add(products);
@@ -83,7 +84,7 @@ namespace Project1.Controllers
         }
 
         // DELETE: api/Products/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"),Authorize(Roles = "Admin")]
         public async Task<ActionResult<Products>> DeleteProducts(int id)
         {
             var products = await _context.Products.FindAsync(id);

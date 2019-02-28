@@ -5,6 +5,7 @@ import { MatPaginatorModule, MatTableModule } from '@angular/material';
 import { ShopRoutingModule } from './shop-routing.module';
 import { ProductsComponent } from './products/products.component';
 import { BasketComponent } from './basket/basket.component';
+import { ProductInfoComponent } from './product-info/product-info.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { BasketComponent } from './basket/basket.component';
     MatPaginatorModule,
     MatTableModule
   ],
-  declarations: [ProductsComponent, BasketComponent]
+  declarations: [ProductsComponent, BasketComponent, ProductInfoComponent]
 })
 export class ShopModule { }

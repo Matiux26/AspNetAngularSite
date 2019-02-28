@@ -10,15 +10,13 @@
       <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]='{"show": isExpanded}'>
         <ul class="navbar-nav flex-grow">
           <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a *ngIf="loggedIn == false; else notLoggedIn" class="nav-link text-dark"
-              [routerLink]='["/auth/login"]' (click)="toggleLoginButton()">Login</a>
-            <ng-template #notLoggedIn>
-              <a class="nav-link text-dark" (click)="toggleLoginButton()" [routerLink]='["/auth/login"]'>Logout</a>
-            </ng-template>
+            <a class="nav-link text-dark"
+              [routerLink]='["/auth/login"]'>Login</a>
           </li>
           <li class="nav-item" [routerLinkActive]='["link-active"]'>
             <a class="nav-link text-dark" [routerLink]='["/auth/register"]'>Register</a>
           </li>
+          <p class="expandBtn"><button class="button" mat-button [routerLink]='["/shop/basket"]'><mat-icon>shopping_basket</mat-icon></button></p>
         </ul>
       </div>
     </div>
