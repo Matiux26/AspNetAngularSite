@@ -25,14 +25,14 @@ namespace Project1.Controllers
 
         // GET: api/Users
         [HttpGet,Authorize(Roles = "Admin")]
-        public async Task<ActionResult<IEnumerable<UserModel.Users>>> GetUser()
+        public async Task<ActionResult<IEnumerable<Users>>> GetUser()
         {
             return await _context.Users.ToListAsync();
         }
 
         // GET: api/Users/5
         [HttpGet("{id}"),Authorize(Roles = "Admin")]
-        public async Task<ActionResult<UserModel.Users>> GetUser(int id)
+        public async Task<ActionResult<Users>> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
 
@@ -46,7 +46,7 @@ namespace Project1.Controllers
 
         // PUT: api/Users/5
         [HttpPut("{id}"),Authorize(Roles = "Admin")]
-        public async Task<IActionResult> PutUser(int id, UserModel.Users user)
+        public async Task<IActionResult> PutUser(int id, Users user)
         {
             if (id != user.ID)
             {
@@ -76,7 +76,7 @@ namespace Project1.Controllers
 
         // POST: api/Users
         [HttpPost,Authorize(Roles = "Admin")]
-        public async Task<ActionResult<UserModel.Users>> PostUser(UserModel.Users user)
+        public async Task<ActionResult<Users>> PostUser(Users user)
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
@@ -86,7 +86,7 @@ namespace Project1.Controllers
 
         // DELETE: api/Users/5
         [HttpDelete("{id}"),Authorize(Roles = "Admin")]
-        public async Task<ActionResult<UserModel.Users>> DeleteUser(int id)
+        public async Task<ActionResult<Users>> DeleteUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null)
@@ -99,43 +99,7 @@ namespace Project1.Controllers
 
             return user;
         }
-
-        // POST: api/login
-        [HttpPost, Route("login")]
-        public async Task<ActionResult<UserModel.Users>> Login(UserModel.Users user)
-        {
-            if (user == null)
-            {
-                return BadRequest("Invalid client request");
-            }
-
-            if (CheckUserCredentials(user) == true)
-            {
-                var secretKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("superSecretKey@345"));
-                var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-                string role = user.Role;
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.Login),
-                    new Claim(ClaimTypes.Role, role)//tu zamiast role jak sie wpisze "Admin" to dziala
-                };
-                var tokeOptions = new JwtSecurityToken(
-                    issuer: "http://localhost:5000",
-                    audience: "http://localhost:5000",
-                    claims: claims,
-                    expires: DateTime.Now.AddMinutes(5),
-                    signingCredentials: signinCredentials
-                );
-
-                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
-                return Ok(new { Token = tokenString });
-            }
-            else
-            {
-                return Unauthorized();
-            }
-        }
-        public Boolean CheckUserCredentials(UserModel.Users user)
+        public Boolean CheckUserCredentials(Users user)
         {
             var userExists = (from listUsers in _context.Users
                              where listUsers.Login == user.Login || 

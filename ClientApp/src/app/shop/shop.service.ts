@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Product } from '../models/product';
 import { HttpClient } from '@angular/common/http';
 
@@ -11,6 +11,8 @@ export class ShopService {
   
   constructor(private http: HttpClient) { }
 
+  onAddToCartEvent: EventEmitter<any> = new EventEmitter();
+
   getProducts() {
     return this.http.get('/api/products');
   }
@@ -20,11 +22,23 @@ export class ShopService {
   }
 
   addProduct(product) {
-    //let body = JSON.stringify(product);
     return this.http.post('/api/Products', product);
   }
 
   deleteProduct(product) {
     return this.http.delete('/api/Products/' + product.id);
   }
+
+  addOrder(order) {
+    return this.http.post('/api/Orders', order);
+  }
+
+  addOrderItem(orderItem) {
+    return this.http.post('/api/Order_items', orderItem);
+  }
+
+  addSimplifiedOrderItem(order) {
+    return this.http.post('/api/OrderSimplifieds', order);
+  }
+
 }

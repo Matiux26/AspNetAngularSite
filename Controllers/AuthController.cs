@@ -23,7 +23,7 @@ namespace Project1.Controllers
 
         // POST api/login
         [HttpPost, Route("login")]
-        public async Task<ActionResult<UserModel.Users>> Login(UserModel.Users user)
+        public async Task<ActionResult<Users>> Login(Users user)
         {
             if (user == null)
             {
@@ -34,11 +34,12 @@ namespace Project1.Controllers
             {
                 var secretKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("superSecretKey@345"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-
+                
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, user.Login),
-                    new Claim(ClaimTypes.Role, "Admin")
+                    new Claim("name", user.Login),
+                    new Claim(ClaimTypes.Role, "Admin"),
+                    new Claim("id", user.ID.ToString()),
                 };
 
                 var tokeOptions = new JwtSecurityToken(
@@ -57,7 +58,7 @@ namespace Project1.Controllers
                 return Unauthorized();
             }
         }
-        public Boolean CheckUserCredentials(UserModel.Users user)
+        public Boolean CheckUserCredentials(Users user)
         {
             var userExists = (from listUsers in _context.Users
                               where listUsers.Login == user.Login ||

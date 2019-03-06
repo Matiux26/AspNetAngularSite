@@ -1,7 +1,9 @@
 <header>
   <nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3'>
     <div class="container">
-        <p class="expandBtn"><button class="button" mat-button (click)="inputSideNav.toggle()"><mat-icon>menu</mat-icon></button></p>
+      <p class="expandBtn"><button class="button" mat-button (click)="inputSideNav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button></p>
       <a class="navbar-brand" [routerLink]='["/"]'>Home</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
         aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
@@ -9,14 +11,24 @@
       </button>
       <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]='{"show": isExpanded}'>
         <ul class="navbar-nav flex-grow">
-          <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark"
-              [routerLink]='["/auth/login"]'>Login</a>
+          <li *ngIf="loggedIn" class="nav-item" [routerLinkActive]='["link-active"]'>
+            <a class="nav-link text-dark" [routerLink]='["/auth/user-details"]'>{{login}}</a>
+          </li>
+          <li *ngIf="!loggedIn" class="nav-item" [routerLinkActive]='["link-active"]'>
+            <a class="nav-link text-dark" [routerLink]='["/auth/login"]'>Login</a>
+          </li>
+          <li *ngIf="loggedIn" class="nav-item" [routerLinkActive]='["link-active"]'>
+            <a class="nav-link text-dark" (click)="logOut()" [routerLink]='["./"]'>Logout</a>
           </li>
           <li class="nav-item" [routerLinkActive]='["link-active"]'>
             <a class="nav-link text-dark" [routerLink]='["/auth/register"]'>Register</a>
           </li>
-          <p class="expandBtn"><button class="button" mat-button [routerLink]='["/shop/basket"]'><mat-icon>shopping_basket</mat-icon></button></p>
+          <p class="expandBtn">
+            <button class="button" mat-button [routerLink]='["/shop/basket"]'>
+              <mat-icon>shopping_basket</mat-icon>
+              <p *ngIf="cartQuantity!=null">{{cartQuantity}}</p>
+            </button>
+          </p>
         </ul>
       </div>
     </div>

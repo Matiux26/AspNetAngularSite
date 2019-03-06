@@ -1,3 +1,12 @@
-<p>
-  basket works!
-</p>
+<div *ngIf="cartArray">
+<table>
+<tr *ngFor="let product of cartArray">
+    <td>{{product.name}}</td>
+    <td>{{product.quantity}}</td>
+    <td>{{product.price}}</td>
+</tr>
+</table>
+<p>Together: {{amountToPay}}</p>
+<button (click)="orderItemsInBasket()">Click to pay</button>
+</div>
+<h1 *ngIf="!cartArray" class="h1">Cart is empty</h1>

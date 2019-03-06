@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ShopService } from '../shop.service';
 import { Product } from '../../models/product';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
@@ -13,30 +13,60 @@ export class ProductsComponent implements OnInit {
   displayedColumns: string[] = ['name', 'quantity', 'price'];
   dataSource: MatTableDataSource<Product>;
   productClicked = false;
-  product: Product;
+  product: Product = null;
+  quantity: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private shopService: ShopService, private http: HttpClient) { }
+  constructor(private _shopService: ShopService, private http: HttpClient) { }
 
   editRecord() {
 
   }
+
   deleteRecord() {
 
   }
+
+  addToCart() {
+    var cartArray = JSON.parse(localStorage.getItem('itemsFromCartArray')) || [];
+    cartArray = this.mergeProductsInCart(cartArray);
+
+    localStorage.setItem('itemsFromCartArray', JSON.stringify(cartArray));
+    this._shopService.onAddToCartEvent.emit(cartArray.length);
+    console.log("Product set to local storage");
+  }
+
+  mergeProductsInCart(cartArray) {
+    var duplicate = false;
+    if (cartArray != null) {
+      for (var i = 0; i < cartArray.length; i++) {
+        if (cartArray[i].name == this.product.name) {
+          duplicate = true;
+          var quantity = parseInt(cartArray[i].quantity);
+          quantity += parseInt(this.quantity);
+          cartArray[i].quantity = quantity;
+        }
+      }
+      if (duplicate == false) cartArray.push({"id": this.product.id, "name": this.product.name, "quantity": this.quantity, "price": this.product.price });
+    } else {
+      cartArray.push({ "id": this.product.id, "name": this.product.name, "quantity": this.quantity, "price": this.product.price });
+    }
+    return cartArray;
+  }
+
   showProductInfo(e, id) {
     e.stopPropagation();
-    console.log(id);
+    this.quantity = null;
     this.productClicked = true;
-    this.shopService.getProduct(id).subscribe((data: any) => this.product = data);
+    this._shopService.getProduct(id).subscribe((data: any) => this.product = data);
   }
-  goBackToListProducts(){
+  goBackToListProducts() {
     this.productClicked = false;
   }
   ngOnInit() {
     this.productClicked = false;
-    this.shopService.getProducts().subscribe((data: any) => {
+    this._shopService.getProducts().subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
     });

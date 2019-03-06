@@ -10,18 +10,17 @@ export class AuthGuardService implements CanActivate{
 
   constructor(private jwtHelper: JwtHelperService, private router: Router) { }
 
-  canActivate(): boolean {
+  canActivate() {
     var token = localStorage.getItem('jwt');
  
     if (token && !this.jwtHelper.isTokenExpired(token)){
       return true;
     }
-    console.log('navigate');
     this.router.navigate(['/auth/login']);
     return false;
   }
 
-  checkIfLoggedIn(): boolean {
+  checkIfLoggedIn() {
     if (localStorage.getItem('jwt') != null) {
       return false;
     } else {
@@ -29,7 +28,7 @@ export class AuthGuardService implements CanActivate{
     }
   }
 
-  logOut(): void {
+  logOut() {
     localStorage.removeItem("jwt");
   }
 }

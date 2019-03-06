@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
 
   private user: User;
   private invalidLogin: boolean;
+  private loggedIn = false;
 
   constructor(
     private router: Router,
@@ -29,6 +30,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("jwt", token);
         this.invalidLogin = false;
         this.router.navigate(['/']);
+        this.loggedIn = true;
+        this._authService.onLoginEvent.emit(this.loggedIn);
         return true;
       },
       error => {

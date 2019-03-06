@@ -1,0 +1,26 @@
+<form>
+
+  <div class="form-group">
+    <label for="name">Forename</label>
+    <input type="text" class="form-control" [(ngModel)]="userDetails.forename" name="forename" id="forename" required>
+  </div>
+  <div class="form-group">
+    <label for="surname">Surname</label>
+    <input type="text" class="form-control" [(ngModel)]="userDetails.surname" name="surname" id="surname" required>
+  </div>
+  <div class="form-group">
+    <label for="postcode">Postcode</label>
+    <input type="text" class="form-control" [(ngModel)]="userDetails.postcode" name="postcode" id="postcode" required>
+  </div>
+  <div class="form-group">
+    <label for="phone">Phone</label>
+    <input type="text" class="form-control" [(ngModel)]="userDetails.phone" name="phone" id="phone" required>
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="text" class="form-control" [(ngModel)]="userDetails.email" name="email" id="email" required>
+  </div>
+
+  <button type="submit" (click)="updateUserDetails()" class="btn btn-success">Submit</button>
+  
+</form>

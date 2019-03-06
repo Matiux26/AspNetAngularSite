@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project1.Models;
-using Project1.ProductModel;
 
 namespace Project1.Controllers
 {
@@ -23,7 +22,7 @@ namespace Project1.Controllers
         }
 
         // GET: api/Products
-        [HttpGet,Authorize(Roles = "Admin")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Products>>> GetProduct()
         {
             return await _context.Products.ToListAsync();
