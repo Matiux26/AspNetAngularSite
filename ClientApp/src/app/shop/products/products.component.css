@@ -1,3 +1,7 @@
 table {
     width: 100%;
   }
+  a{
+    float: right;
+    margin-right: 4pt;
+  }

@@ -1,12 +1,21 @@
 <div *ngIf="cartArray">
-<table>
-<tr *ngFor="let product of cartArray">
-    <td>{{product.name}}</td>
-    <td>{{product.quantity}}</td>
-    <td>{{product.price}}</td>
-</tr>
-</table>
-<p>Together: {{amountToPay}}</p>
-<button (click)="orderItemsInBasket()">Click to pay</button>
+    <table class="table tbl-bordered">
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Together</th>
+        </tr>
+        <tr *ngFor="let product of cartArray">
+            <td>{{product.name}}</td>
+            <td><input type="text" [(ngModel)]="product.quantity" (ngModelChange)="onQuantityChange($event,product.id)"
+                    name="quantity" id="quantity"></td>
+            <td>{{product.price}}</td>
+            <td>{{product.price*product.quantity}}</td>
+            <td><button class="button btn-danger" (click)="removeProductFromBasket(product.id)">Delete</button></td>
+        </tr>
+    </table>
+    <p>Total: {{amountToPay}}</p>
+    <button (click)="orderItemsInBasket()">Click to pay</button>
 </div>
 <h1 *ngIf="!cartArray" class="h1">Cart is empty</h1>

@@ -29,16 +29,16 @@ namespace Project1.Controllers
             {
                 return BadRequest("Invalid client request");
             }
-
-            if (CheckUserCredentials(user) == true)
+            user = CheckUserCredentials(user);
+            if (user != null)
             {
                 var secretKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("superSecretKey@345"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-                
                 var claims = new List<Claim>
                 {
                     new Claim("name", user.Login),
-                    new Claim(ClaimTypes.Role, "Admin"),
+                    new Claim(ClaimTypes.Role, user.Role.ToString()),
+                    new Claim("Role", user.Role.ToString()),
                     new Claim("id", user.ID.ToString()),
                 };
 
@@ -58,12 +58,12 @@ namespace Project1.Controllers
                 return Unauthorized();
             }
         }
-        public Boolean CheckUserCredentials(Users user)
+        public Users CheckUserCredentials(Users user)
         {
             var userExists = (from listUsers in _context.Users
                               where listUsers.Login == user.Login ||
                               listUsers.Password == user.Password
-                              select listUsers).Any();
+                              select listUsers).First();
             return userExists;
         }
     }

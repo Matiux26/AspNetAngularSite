@@ -11,7 +11,7 @@ export class ShopService {
   
   constructor(private http: HttpClient) { }
 
-  onAddToCartEvent: EventEmitter<any> = new EventEmitter();
+  onCartChange: EventEmitter<any> = new EventEmitter();
 
   getProducts() {
     return this.http.get('/api/products');
@@ -25,9 +25,13 @@ export class ShopService {
     return this.http.post('/api/Products', product);
   }
 
-  deleteProduct(product) {
-    return this.http.delete('/api/Products/' + product.id);
+  deleteProduct(id) {
+    return this.http.delete('/api/Products/' + id);
   }
+
+  updateProduct(id, product) {  
+    return this.http.put('api/Products/'+ id, product);
+}  
 
   addOrder(order) {
     return this.http.post('/api/Orders', order);

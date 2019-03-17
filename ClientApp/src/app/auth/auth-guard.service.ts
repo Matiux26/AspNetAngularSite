@@ -21,7 +21,7 @@ export class AuthGuardService implements CanActivate{
   }
 
   checkIfLoggedIn() {
-    if (localStorage.getItem('jwt') != null) {
+    if (localStorage.getItem('jwt') == null) {
       return false;
     } else {
       return true;

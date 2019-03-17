@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
       },
       error => {
         this.invalidLogin = true;
-        console.log('Error while registering user');
       }
     )
   }

@@ -26,6 +26,19 @@ export class AuthService {
     return this.http.post('/api/auth/login', user, this.headers);
   }
 
+  updateUser(id, user) {
+    return this.http.put('api/Users/' + id, user);
+  }
+
+  checkUserRole() {
+    var decodedToken = this.getDecodedToken();
+    if (decodedToken != null) {
+      return decodedToken.Role;
+    } else {
+      return null;
+    }
+  }
+
   getUsers() {
     return this.http.get('/api/users');
   }
@@ -59,7 +72,11 @@ export class AuthService {
 
   getDecodedToken() {
     var token = localStorage.getItem("jwt");
-    var tokenData = this.jwtHelper.decodeToken(token);
-    return tokenData;
+    if (token != null) {
+      var tokenData = this.jwtHelper.decodeToken(token);
+      return tokenData;
+    } else {
+      return null;
+    }
   }
 }

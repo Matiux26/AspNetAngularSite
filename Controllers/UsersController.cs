@@ -31,7 +31,7 @@ namespace Project1.Controllers
         }
 
         // GET: api/Users/5
-        [HttpGet("{id}"),Authorize(Roles = "Admin")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Users>> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -45,7 +45,7 @@ namespace Project1.Controllers
         }
 
         // PUT: api/Users/5
-        [HttpPut("{id}"),Authorize(Roles = "Admin")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(int id, Users user)
         {
             if (id != user.ID)
@@ -75,7 +75,7 @@ namespace Project1.Controllers
         }
 
         // POST: api/Users
-        [HttpPost,Authorize(Roles = "Admin")]
+        [HttpPost]
         public async Task<ActionResult<Users>> PostUser(Users user)
         {
             _context.Users.Add(user);

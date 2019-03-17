@@ -36,7 +36,8 @@ import { LeftMenuComponent } from './left-menu/left-menu.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'auth', loadChildren: './auth/auth.module#AuthModule' },
-      { path: 'shop', loadChildren: './shop/shop.module#ShopModule' }
+      { path: 'shop', loadChildren: './shop/shop.module#ShopModule' },
+      { path: 'analytics', loadChildren: './analytics/analytics.module#AnalyticsModule' }
     ]),
     JwtModule.forRoot({
       config: {

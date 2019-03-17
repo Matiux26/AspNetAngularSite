@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,14 +22,14 @@ namespace Project1.Controllers
         }
 
         // GET: api/Orders
-        [HttpGet]
+        [HttpGet,Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<Orders>>> GetOrders()
         {
             return await _context.Orders.ToListAsync();
         }
 
         // GET: api/Orders/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}"),Authorize(Roles = "Admin")]
         public async Task<ActionResult<Orders>> GetOrders(int id)
         {
             var orders = await _context.Orders.FindAsync(id);
@@ -42,7 +43,7 @@ namespace Project1.Controllers
         }
 
         // PUT: api/Orders/5
-        [HttpPut("{id}")]
+        [HttpPut("{id}"),Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutOrders(int id, Orders orders)
         {
             if (id != orders.ID)
@@ -72,7 +73,7 @@ namespace Project1.Controllers
         }
 
         // POST: api/Orders
-        [HttpPost]
+        [HttpPost,Authorize]
         public async Task<ActionResult<Orders>> PostOrders(Orders orders)
         {
             _context.Orders.Add(orders);
@@ -82,7 +83,7 @@ namespace Project1.Controllers
         }
 
         // DELETE: api/Orders/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"),Authorize(Roles = "Admin")]
         public async Task<ActionResult<Orders>> DeleteOrders(int id)
         {
             var orders = await _context.Orders.FindAsync(id);

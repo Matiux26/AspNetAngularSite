@@ -15,7 +15,6 @@ namespace Project1.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly Project1Context _context;
-
         public ProductsController(Project1Context context)
         {
             _context = context;
@@ -43,7 +42,7 @@ namespace Project1.Controllers
         }
 
         // PUT: api/Products/5
-        [HttpPut("{id}"),Authorize(Roles = "Admin")]
+        [HttpPut("{id}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutProducts(int id, Products products)
         {
             if (id != products.ID)
@@ -73,7 +72,7 @@ namespace Project1.Controllers
         }
 
         // POST: api/Products
-        [HttpPost,Authorize(Roles = "Admin")]
+        [HttpPost, Authorize(Roles = "Admin")]
         public async Task<ActionResult<Products>> PostProducts(Products products)
         {
             _context.Products.Add(products);
@@ -83,7 +82,7 @@ namespace Project1.Controllers
         }
 
         // DELETE: api/Products/5
-        [HttpDelete("{id}"),Authorize(Roles = "Admin")]
+        [HttpDelete("{id}"), Authorize(Roles = "Admin")]
         public async Task<ActionResult<Products>> DeleteProducts(int id)
         {
             var products = await _context.Products.FindAsync(id);

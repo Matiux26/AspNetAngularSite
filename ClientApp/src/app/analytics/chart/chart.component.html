@@ -1,0 +1,33 @@
+<div class="flex" >
+  <div class="flex-item">
+    <div style="display: block;">
+    <canvas baseChart width="400" height="400"  *ngIf="quantity_list.length>1000"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                [plugins]="lineChartPlugins"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="flex" >
+  <div class="flex-item">
+    <div style="display: block;">
+    <canvas baseChart width="400" height="400"  *ngIf="render==1"
+                [datasets]="lineChartData1"
+                [labels]="lineChartLabels1"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                [plugins]="lineChartPlugins"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+    </div>
+  </div>
+</div>

@@ -11,6 +11,7 @@ namespace Project1.Models
         }
 
         public DbSet<Users> Users { get; set; }
+        public DbSet<Predictions> Predictions { get; set; }
         public DbSet<User_info> User_info { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<Delivery_addresses> Delivery_addresses { get; set; }

@@ -10,7 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ProductsComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'quantity', 'price'];
+  displayedColumns: string[] = ['name', 'quantity', 'price', 'other'];
   dataSource: MatTableDataSource<Product>;
   productClicked = false;
   product: Product = null;
@@ -23,9 +23,19 @@ export class ProductsComponent implements OnInit {
   editRecord() {
 
   }
-
-  deleteRecord() {
-
+  reload() {
+    this._shopService.getProducts().subscribe((data: any) => {
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+    });
+  }
+  deleteRecord(id) {
+    var ans = confirm("Do you want to product with Id: " + id);
+    if (ans) {
+      this._shopService.deleteProduct(id).subscribe((data) => {
+        this.reload();
+      }, error => console.error(error))
+    }
   }
 
   addToCart() {
@@ -33,7 +43,7 @@ export class ProductsComponent implements OnInit {
     cartArray = this.mergeProductsInCart(cartArray);
 
     localStorage.setItem('itemsFromCartArray', JSON.stringify(cartArray));
-    this._shopService.onAddToCartEvent.emit(cartArray.length);
+    this._shopService.onCartChange.emit(cartArray.length);
     console.log("Product set to local storage");
   }
 
@@ -48,7 +58,7 @@ export class ProductsComponent implements OnInit {
           cartArray[i].quantity = quantity;
         }
       }
-      if (duplicate == false) cartArray.push({"id": this.product.id, "name": this.product.name, "quantity": this.quantity, "price": this.product.price });
+      if (duplicate == false) cartArray.push({ "id": this.product.id, "name": this.product.name, "quantity": this.quantity, "price": this.product.price });
     } else {
       cartArray.push({ "id": this.product.id, "name": this.product.name, "quantity": this.quantity, "price": this.product.price });
     }

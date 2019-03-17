@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AnalyticsComponent } from './analytics/analytics.component';
+import { AnalyticsRoutingModule } from './analytics-routing.module';
+import { ChartComponent } from './chart/chart.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
-  declarations: [AnalyticsComponent],
+  declarations: [ChartComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    ChartsModule,
+    AnalyticsRoutingModule
   ]
 })
 export class AnalyticsModule { }

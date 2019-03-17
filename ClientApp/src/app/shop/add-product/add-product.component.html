@@ -1,0 +1,27 @@
+<h1>{{title}}</h1>
+<h3>Product</h3>
+<form>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" 
+        [(ngModel)]="product.name" name="name" id="name" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input type="text" class="form-control" 
+        [(ngModel)]="product.price" name="price" id="price" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="quantity">Quantity</label>
+      <input type="text" class="form-control" 
+        [(ngModel)]="product.quantity" name="quantity" id="quantity" required>
+    </div>
+  
+    <button type="submit" (click)="save()" class="btn btn-default">Save</button>
+    <button class="btn" (click)="cancel()">Cancel</button>
+  
+  </form>
+
+    

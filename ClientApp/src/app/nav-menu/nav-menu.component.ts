@@ -16,6 +16,11 @@ export class NavMenuComponent implements OnInit {
   @Input() inputSideNav: MatSidenav;
 
   ngOnInit() {
+    var decodedToken = this._authService.getDecodedToken();
+    if (decodedToken != null) {
+      this.login = decodedToken.name;
+      if (this.login != null) this.loggedIn = true;
+    }
   }
 
   isExpanded = false;
@@ -24,9 +29,9 @@ export class NavMenuComponent implements OnInit {
   login: any;
 
   constructor(private _authService: AuthService, private _authGuard: AuthGuardService,
-     private _shopService: ShopService,private route: ActivatedRoute, private router: Router,
-     jwtHelper: JwtHelperService) {
-    _shopService.onAddToCartEvent.subscribe(
+    private _shopService: ShopService, private route: ActivatedRoute, private router: Router,
+    jwtHelper: JwtHelperService) {
+    _shopService.onCartChange.subscribe(
       (cartQuantity) => {
         this.cartQuantity = cartQuantity;
       }
@@ -38,8 +43,10 @@ export class NavMenuComponent implements OnInit {
         this.login = decodedToken.name;
       }
     );
+    var cartArray = JSON.parse(localStorage.getItem('itemsFromCartArray'));
+    if (cartArray != null) this.cartQuantity = cartArray.length;
   }
-  logOut(){
+  logOut() {
     this._authGuard.logOut();
     this.loggedIn = false;
     this.router.navigate(['/']);

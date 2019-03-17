@@ -6,17 +6,11 @@
       <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
         <a class="nav-link text-dark" [routerLink]='["shop/products"]'>Products</a>
       </li>
-      <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-        <a class="nav-link text-dark" [routerLink]='["api/Users"]'>Add Product*</a>
+      <li *ngIf="role == 'Admin' && role != null" class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+        <a class="nav-link text-dark" [routerLink]='["shop/addProduct"]'>Add Product</a>
       </li>
-      <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-        <a class="nav-link text-dark" [routerLink]='["shop/products"]'>Delete Product*</a>
-      </li>
-      <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-        <a class="nav-link text-dark" [routerLink]='["shop/products"]'>Edit Product*</a>
-      </li>
-      <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-          <a class="nav-link text-dark" [routerLink]='["shop/products"]'>Analytics*</a>
+      <li *ngIf="role == 'Admin' && role != null" class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+          <a class="nav-link text-dark" [routerLink]='["analytics/chart"]'>Analytics</a>
         </li>
     </ul>
   </mat-sidenav>

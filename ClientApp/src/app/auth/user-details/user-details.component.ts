@@ -14,10 +14,43 @@ export class UserDetailsComponent implements OnInit {
   constructor(private _authService: AuthService) { }
 
   ngOnInit() {
-  }
-  updateUserDetails() {
     var decodedToken = this._authService.getDecodedToken();
-    this._authService.addUserDetails(this.userDetails).subscribe(response => { return true; })
-    this._authService.getUser(decodedToken.id).subscribe((data: any) => this.user = data);
+    this._authService.getUser(decodedToken.id).subscribe(async (data: User) => {
+      this.user = await data
+      if(this.user.user_info_id){
+      this._authService.getUserDetails(this.user.user_info_id).subscribe(
+        (data: UserDetails) => {
+          this.userDetails = data;
+        }
+      );
+      }else{
+        this.userDetails = new UserDetails;
+      }
+    }
+    );
+  }
+  /* constructor(private _authService: AuthService) { this.userDetails = new UserDetails }
+ 
+   ngOnInit() {
+     var decodedToken = this._authService.getDecodedToken();
+     this._authService.getUser(decodedToken.id).subscribe(async (data: User) => {
+       this.user = await data
+       if (!this.user.user_info_id) {
+         this._authService.getUserDetails(decodedToken.id).subscribe(
+           (data: UserDetails) => {
+             if (!data) this.userDetails = data
+           }
+         );
+       }
+     }
+     );
+   }*/
+  async updateUserDetails() {
+    var decodedToken = this._authService.getDecodedToken();
+    this._authService.addUserDetails(this.userDetails).subscribe(async (data: number) => {
+      var userInfo = await data;
+      this.user.user_info_id = userInfo["id"];
+      this._authService.updateUser(decodedToken.id, this.user).subscribe();
+    });
   }
 }

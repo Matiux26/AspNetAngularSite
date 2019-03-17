@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project1.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Project1.Controllers
 {
@@ -21,14 +22,14 @@ namespace Project1.Controllers
         }
 
         // GET: api/OrderSimplifieds
-        [HttpGet]
+        [HttpGet,Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<OrderSimplified>>> GetOrderSimplified()
         {
             return await _context.OrderSimplified.ToListAsync();
         }
 
         // GET: api/OrderSimplifieds/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}"),Authorize(Roles = "Admin")]
         public async Task<ActionResult<OrderSimplified>> GetOrderSimplified(int id)
         {
             var orderSimplified = await _context.OrderSimplified.FindAsync(id);
@@ -42,7 +43,7 @@ namespace Project1.Controllers
         }
 
         // PUT: api/OrderSimplifieds/5
-        [HttpPut("{id}")]
+        [HttpPut("{id}"),Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutOrderSimplified(int id, OrderSimplified orderSimplified)
         {
             if (id != orderSimplified.Id)
@@ -72,7 +73,7 @@ namespace Project1.Controllers
         }
 
         // POST: api/OrderSimplifieds
-        [HttpPost]
+        [HttpPost,Authorize]
         public async Task<ActionResult<OrderSimplified>> PostOrderSimplified(OrderSimplified orderSimplified)
         {
             _context.OrderSimplified.Add(orderSimplified);
@@ -82,7 +83,7 @@ namespace Project1.Controllers
         }
 
         // DELETE: api/OrderSimplifieds/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"),Authorize(Roles = "Admin")]
         public async Task<ActionResult<OrderSimplified>> DeleteOrderSimplified(int id)
         {
             var orderSimplified = await _context.OrderSimplified.FindAsync(id);
