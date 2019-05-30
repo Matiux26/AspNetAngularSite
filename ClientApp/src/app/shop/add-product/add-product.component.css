@@ -1,0 +1,17 @@
+#saveBtn:hover{
+background-color: green;
+}
+#cancelBtn:hover{
+background-color: red;
+}
+#saveBtn{
+margin:5px;
+}
+#cancelBtn{
+margin:5px;
+}
+.form-group{
+    margin:auto;
+    width: 40%;
+    text-align: left;
+}

@@ -1,0 +1,66 @@
+<div *ngIf="!productClicked" class="mat-elevation-z8">
+  <table mat-table id="tbl" [dataSource]="dataSource" class="table-hover">
+
+    <ng-container matColumnDef="image">
+      <th mat-header-cell *matHeaderCellDef> Zdjęcie </th>
+      <td mat-cell *matCellDef="let element" (click)="showProductInfo($event, element.id)">
+        <img *ngIf="element.image" src="{{element.image}}" alt="{{element.name}}" class="imageLogo">
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nazwa </th>
+      <td mat-cell *matCellDef="let element" (click)="showProductInfo($event, element.id)"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef> Ilość </th>
+      <td mat-cell *matCellDef="let element" (click)="showProductInfo($event, element.id)"> {{element.quantity}} szt.
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Cena </th>
+      <td mat-cell *matCellDef="let element" (click)="showProductInfo($event, element.id)">
+        {{element.price}} zł
+      </td>
+    </ng-container>
+    <ng-container *ngIf="role=='admin'" matColumnDef="other">
+      <th mat-header-cell *matHeaderCellDef id="other"></th>
+      <td mat-cell *matCellDef="let element">
+        <a [routerLink]="" (click)="deleteRecord(element.id)">Usuń</a>
+        <a [routerLink]="['/shop/edit/', element.id]">Edytuj</a>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+<div *ngIf="productClicked">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 class="display-6">{{product?.name}}</h1><br>
+        <img *ngIf="product?.image" src="{{product?.image}}" alt="{{product?.name}}" class="imageDetails">
+      </div>
+      <div class="col">
+        <button type="submit" (click)="goBackToListProducts()" class="btn btn-warning">Cofnij do listy produktów</button>
+      </div>
+      <div class="w-100"></div>
+      <div class="col">
+        <div class="form-group">
+          <input type="text" class="form-control" id="quantity" required [(ngModel)]="quantity" name="quantity">
+          Ilość: {{quantity}} szt.<br>
+          <p *ngIf="quantity!=null">Cena: {{quantity * product?.price}} zł</p>
+        </div>
+      </div>
+      <div class="col">
+        <form>
+          <button type="submit" (click)="addToCart()" class="btn btn-success">Dodaj do koszyka</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

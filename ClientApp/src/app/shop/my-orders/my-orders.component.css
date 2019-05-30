@@ -1,0 +1,20 @@
+td {
+    height: 100px !important;
+    width: 15%;
+  }
+  #table2{
+    text-align: center !important; 
+  }
+  table {
+    width: 100%;
+  }
+  #table1{
+    text-align: left !important;
+  }
+  div{
+     text-align: center;
+  }
+  .imageDetails{
+    width: 128px;
+    height: 128px;
+  }

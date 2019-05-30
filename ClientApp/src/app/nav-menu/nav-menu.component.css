@@ -1,0 +1,28 @@
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+.container{
+  margin-left:0px;
+
+}
+.expandBtn{
+  margin-bottom: 0px;
+  margin-right: 20px;
+}
+a:hover { 
+  color:lightslategray !important;
+}
+a{
+  font-size: 125%;
+  font-weight: bold;  
+}

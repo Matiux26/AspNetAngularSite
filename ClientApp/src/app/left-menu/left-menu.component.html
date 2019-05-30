@@ -1,0 +1,25 @@
+<app-nav-menu [inputSideNav]="sidenav"></app-nav-menu>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')"
+    (closed)="events.push('close!')">
+    <ul class="navbar-nav flex-grow">
+      <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+        <a class="nav-link text-dark" [routerLink]='["shop/products"]'>Produkty</a>
+      </li>
+      <li *ngIf="role == 'admin' && role != null" class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+        <a class="nav-link text-dark" [routerLink]='["shop/addProduct"]'>Dodaj Produkt</a>
+      </li>
+      <li *ngIf="role == 'admin' && role != null" class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+        <a class="nav-link text-dark" [routerLink]='["shop/awaitingOrders"]'>Zamówienia</a>
+      </li>
+      <li *ngIf="role == 'admin' && role != null" class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+          <a class="nav-link text-dark" [routerLink]='["analytics/chart"]'>Statystyki</a>
+        </li>
+    </ul>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

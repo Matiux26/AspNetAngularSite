@@ -1,0 +1,17 @@
+mat-sidenav, mat-sidenav-content {
+    padding: 20px;
+  }
+mat-sidenav{
+  background-color: rgb(211, 238, 211);
+  
+}
+  mat-sidenav-container {
+    height: 85%;
+  }
+  a:hover { 
+    color:lightslategray !important;
+  }
+  a{
+    font-size: 150%;
+    font-weight: bold;  
+  }

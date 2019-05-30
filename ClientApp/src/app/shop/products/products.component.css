@@ -1,0 +1,41 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+table {
+    width: 100%;
+  }
+  a{
+    float: right;
+    margin-right: 4pt;
+  }
+  .imageLogo{
+    width: 64px;
+    height: 64px;
+  }
+  .imageDetails{
+    width: 128px;
+    height: 128px;
+  }
+  ::ng-deep .mat-paginator-page-size-select {
+    width: 27px!important;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+    background-color: transparent;
+}
+
+::ng-deep .mat-select-value {
+  color: #005999;
+    font-weight: bold;
+    font-size: 15px;
+}
+::ng-deep .mat-select-arrow {
+    color: #005999;
+}
+::ng-deep .mat-option{
+  padding: 0!important;
+
+}
+::ng-deep .mat-option-text {
+
+    text-align: center;
+}

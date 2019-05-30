@@ -1,0 +1,50 @@
+<form>
+  <div class="form-group">
+    <label for="forename">Imie</label>
+    <input type="text" class="form-control" 
+      [(ngModel)]="userDetails.forename" name="forename" id="forename" required>
+  </div>
+
+  <div class="form-group">
+    <label for="surname">Nazwisko</label>
+    <input type="text" class="form-control" 
+      [(ngModel)]="userDetails.surname" name="surname" id="surname" required>
+  </div>
+
+  <div class="form-group">
+    <label for="postcode">Kod pocztowy</label>
+    <input type="text" class="form-control" 
+      [(ngModel)]="userDetails.postcode" name="postcode" id="postcode" required>
+  </div>
+
+  <div class="form-group">
+    <label for="phone">Numer telefonu</label>
+    <input type="text" class="form-control" 
+      [(ngModel)]="userDetails.phone" name="phone" id="phone" required>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="text" class="form-control" 
+      [(ngModel)]="userDetails.email" name="email" id="email" required>
+  </div>
+
+  <div class="form-group">
+    <label for="city">Miasto</label>
+    <input type="text" class="form-control" 
+      [(ngModel)]="userDetails.city" name="city" id="city" required>
+  </div>
+
+  <div class="form-group">
+    <label for="street">Ulica</label>
+    <input type="text" class="form-control" 
+      [(ngModel)]="userDetails.street" name="street" id="street" required>
+  </div>
+
+  <div class="form-group">
+    <label for="country">Kraj</label>
+    <input type="text" class="form-control" 
+      [(ngModel)]="userDetails.country" name="country" id="country" required>
+  </div>
+  <button type="submit" (click)="goToSummary()" class="btn btn-success">Przejdź do podsumowania</button>
+</form>

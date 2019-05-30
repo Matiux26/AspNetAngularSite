@@ -1,0 +1,27 @@
+<div *ngIf="userDetails">
+  <h1>Podsumowanie:</h1>
+  <h3>Imie: {{userDetails.forename}}</h3>
+  <h3>Nazwisko: {{userDetails.surname}}</h3>
+  <h3>Kod pocztowy: {{userDetails.postcode}}</h3>
+  <h3>Numer telefonu: {{userDetails.phone}}</h3>
+  <h3>Email: {{userDetails.email}}</h3>
+  <h3>Miasto: {{userDetails.city}}</h3>
+  <h3>Ulica: {{userDetails.street}}</h3>
+  <h3>Kraj: {{userDetails.country}}</h3>
+</div>
+<table class="table tbl-bordered">
+  <tr>
+      <th>Produkt</th>
+      <th>Ilość</th>
+      <th>Cena</th>
+      <th>Razem za przedmiot</th>
+  </tr>
+  <tr *ngFor="let product of cartArray">
+      <td>{{product.name}}</td>
+      <td>{{product.quantity}}</td>
+      <td>{{product.price}} zł</td>
+      <td>{{product.price*product.quantity}} zł</td>
+  </tr>
+  <h3>Razem: {{total}} zł</h3>
+</table>
+<button type="submit" (click)="Ord()" class="btn btn-success">Zamów</button>

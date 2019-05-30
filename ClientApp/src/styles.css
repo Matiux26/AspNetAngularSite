@@ -1,0 +1,7 @@
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+#playVideo{
+    width:100%;
+}
+html, body { height: 100%; }
+
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; margin:0;}

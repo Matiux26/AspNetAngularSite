@@ -1,0 +1,21 @@
+<div *ngIf="cartArray">
+    <table class="table tbl-bordered">
+        <tr>
+            <th>Produkt</th>
+            <th>Ilość</th>
+            <th>Cena</th>
+            <th>Razem</th>
+        </tr>
+        <tr *ngFor="let product of cartArray">
+            <td>{{product.name}}</td>
+            <td><input type="text" [(ngModel)]="product.quantity" (ngModelChange)="onQuantityChange($event,product.id)"
+                    name="quantity" id="quantity"></td>
+            <td>{{product.price}} zł</td>
+            <td>{{product.price*product.quantity}} zł</td>
+            <td><button class="btn" id="deleteBtn" (click)="removeProductFromBasket(product.id)">Usuń z koszyka</button></td>
+        </tr>
+    </table>
+    <h2>Razem: {{amountToPay}} zł</h2>
+    <button class="btn" id="payBtn" (click)="goToAddressForm()">Kliknij aby wypełnić adres zamówienia</button>
+</div>
+<h1 *ngIf="!cartArray" class="h1">Koszyk jest pusty</h1>
